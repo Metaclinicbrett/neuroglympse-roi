@@ -2,6 +2,12 @@
 
 Email-gated ROI calculator for the NeuroGlympse adaptive care model.
 
+## Live Deployment
+
+**Production URL**: https://proforma-site.vercel.app
+
+Automatic deployments are enabled via GitHub integration. Every push to the `main` branch automatically deploys to production.
+
 ## Features
 
 - **Email Gate**: Collects user email before showing the proforma calculator
