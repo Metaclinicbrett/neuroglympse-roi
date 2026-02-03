@@ -6,7 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Calculator, Settings, DollarSign, ChevronRight } from "lucide-react";
+import { Download, Calculator, Settings, DollarSign, ChevronRight, Calendar } from "lucide-react";
 import { CartesianGrid, Tooltip, XAxis, YAxis, ResponsiveContainer, Legend, BarChart, Bar } from "recharts";
 
 function StepHeader({ step, title, subtitle }) {
@@ -228,6 +228,11 @@ export default function NeuroROI() {
                     <div className="flex items-center gap-3">
                         <Button onClick={exportCSV} variant="secondary" className="rounded-2xl">
                             <Download className="mr-2 h-4 w-4" /> Export
+                        </Button>
+                        <Button asChild className="rounded-2xl bg-indigo-600 hover:bg-indigo-700">
+                            <a href="https://calendly.com/neuroglympse/30min" target="_blank" rel="noopener noreferrer">
+                                <Calendar className="mr-2 h-4 w-4" /> Schedule a Review
+                            </a>
                         </Button>
                     </div>
                 </header>
