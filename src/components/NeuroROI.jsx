@@ -143,6 +143,13 @@ export default function NeuroROI() {
             }
         }
 
+        // Factoring calculations (75% reduction = 25% of original)
+        const factoringRate = 0.25; // 75% reduction means you keep 25%
+        const factoringGrossTotal = grossTotal * factoringRate;
+        const factoringDoctorNet = doctorNet * factoringRate;
+        const factoringDoctorNetAfterCost = doctorNetAfterCost * factoringRate;
+        const factoringMonthlyNet = monthlyNet * factoringRate;
+
         return {
             patientsPerYear,
             testedPatientsPerYear,
@@ -157,6 +164,11 @@ export default function NeuroROI() {
             doctorNetAfterCost,
             monthlyNet,
             data,
+            // Factoring values
+            factoringGrossTotal,
+            factoringDoctorNet,
+            factoringDoctorNetAfterCost,
+            factoringMonthlyNet,
         };
     }, [params, rtmPerEpisode, payerFactor, docShare]);
 
@@ -595,6 +607,44 @@ export default function NeuroROI() {
                                 <div className="flex items-center justify-between pt-2 border-t mt-2">
                                     <span className="text-slate-600">Total Gross</span>
                                     <span className="font-semibold">{currency(calc.grossTotal)}</span>
+                                </div>
+                            </div>
+
+                            {/* Factoring Section - 75% Reduction */}
+                            <div className="rounded-2xl border-2 border-red-300 bg-red-50/80 p-4 mt-4">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                                    <div className="text-red-700 font-semibold">With Factoring (75% Reduction)</div>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="rounded-xl bg-white/60 p-3 border border-red-200">
+                                        <div className="text-red-600 text-sm">Annual Gross (Factored)</div>
+                                        <div className="text-2xl font-semibold text-red-700">{currency(calc.factoringGrossTotal)}</div>
+                                    </div>
+
+                                    <div className="rounded-xl bg-white/60 p-3 border border-red-200">
+                                        <div className="text-red-600 text-sm">Annual Partner Share (Factored)</div>
+                                        <div className="text-2xl font-semibold text-red-700">{currency(calc.factoringDoctorNetAfterCost)}</div>
+                                    </div>
+
+                                    <div className="rounded-xl bg-white/60 p-3 border border-red-200">
+                                        <div className="text-red-600 text-sm">Monthly Partner Share (Factored)</div>
+                                        <div className="text-2xl font-semibold text-red-700">{currency(calc.factoringMonthlyNet)}</div>
+                                    </div>
+
+                                    <div className="rounded-xl bg-white/60 p-3 border border-red-200">
+                                        <div className="text-red-600 text-sm">Revenue Lost to Factoring</div>
+                                        <div className="text-2xl font-semibold text-red-700">-{currency(calc.doctorNetAfterCost - calc.factoringDoctorNetAfterCost)}</div>
+                                    </div>
+                                </div>
+                                <div className="mt-4 p-3 rounded-lg bg-red-100/50 border border-red-200">
+                                    <p className="text-xs text-red-700 font-medium mb-1">⚠️ Factoring Disclaimer</p>
+                                    <p className="text-xs text-red-600">
+                                        Factoring applies a 75% reduction to your revenue—you receive only 25% of the original amounts upfront.
+                                        Actual factoring rates vary by provider and may differ from this estimate. This projection is for
+                                        illustrative purposes only and does not constitute financial advice. Consult with a qualified
+                                        financial advisor before making factoring decisions.
+                                    </p>
                                 </div>
                             </div>
                         </CardContent>
